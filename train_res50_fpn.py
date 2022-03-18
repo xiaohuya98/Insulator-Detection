@@ -56,7 +56,7 @@ def main(parser_data):
 
     # load train data set
     # VOCdevkit -> VOC2012 -> ImageSets -> Main -> train.txt
-    train_dataset = VOCDataSet(VOC_root, "2012", data_transform["train"], "train.txt")
+    train_dataset = InsulatorDataSet(VOC_root, "2012", data_transform["train"], "train.txt")
     train_sampler = None
 
     # 是否按图片相似高宽比采样图片组成batch
@@ -89,7 +89,7 @@ def main(parser_data):
 
     # load validation data set
     # VOCdevkit -> VOC2012 -> ImageSets -> Main -> val.txt
-    val_dataset = VOCDataSet(VOC_root, "2012", data_transform["val"], "val.txt")
+    val_dataset = InsulatorDataSet(VOC_root, "2012", data_transform["val"], "val.txt")
     val_data_set_loader = torch.utils.data.DataLoader(val_dataset,
                                                       batch_size=1,
                                                       shuffle=False,
