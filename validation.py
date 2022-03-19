@@ -13,7 +13,7 @@ import numpy as np
 import transforms
 from network_files import FasterRCNN
 from backbone import resnet50_fpn_backbone
-from my_dataset import VOCDataSet
+from my_dataset import InsulatorDataSet
 from train_utils import get_coco_api_from_dataset, CocoEvaluator
 
 
@@ -98,7 +98,7 @@ def main(parser_data):
     }
 
     # read class_indict
-    label_json_path = './pascal_voc_classes.json'
+    label_json_path = './Insulator.json'
     assert os.path.exists(label_json_path), "json file {} dose not exist.".format(label_json_path)
     json_file = open(label_json_path, 'r')
     class_dict = json.load(json_file)
@@ -107,8 +107,8 @@ def main(parser_data):
 
     VOC_root = parser_data.data_path
     # check voc root
-    if os.path.exists(os.path.join(VOC_root, "VOCdevkit")) is False:
-        raise FileNotFoundError("VOCdevkit dose not in path:'{}'.".format(VOC_root))
+    #if os.path.exists(os.path.join(VOC_root, "VOCdevkit")) is False:
+    #    raise FileNotFoundError("VOCdevkit dose not in path:'{}'.".format(VOC_root))
 
     # 注意这里的collate_fn是自定义的，因为读取的数据包括image和targets，不能直接使用默认的方法合成batch
     batch_size = parser_data.batch_size
@@ -116,7 +116,7 @@ def main(parser_data):
     print('Using %g dataloader workers' % nw)
 
     # load validation data set
-    val_dataset = VOCDataSet(VOC_root, "2012", data_transform["val"], "val.txt")
+    val_dataset = InsulatorDataSet(VOC_root, "2012", data_transform["val"], "val.txt")
     val_dataset_loader = torch.utils.data.DataLoader(val_dataset,
                                                      batch_size=1,
                                                      shuffle=False,

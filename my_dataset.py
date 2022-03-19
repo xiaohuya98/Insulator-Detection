@@ -12,11 +12,11 @@ class InsulatorDataSet(Dataset):
     def __init__(self, insulator_root, year="2012", transforms=None, txt_name: str = "train.txt"):
       #  assert year in ["2007", "2012"], "year must be in ['2007', '2012']"
         self.root = insulator_root
-        self.img_root = os.path.join(self.root, "images")
-        self.annotations_root = os.path.join(self.root, "labels")
+        self.img_root = os.path.join(self.root, 'InsulatorDataset', 'Normal_Insulators', "images")
+        self.annotations_root = os.path.join(self.root, 'InsulatorDataset', 'Normal_Insulators', "labels")
 
         # read train.txt or val.txt file
-        txt_path = os.path.join('home/studio-lab-user/Practice/Insulator Detection', txt_name)
+        txt_path = os.path.join('./Insulator Detection', txt_name)
         assert os.path.exists(txt_path), "not found {} file.".format(txt_name)
 
         with open(txt_path) as read:

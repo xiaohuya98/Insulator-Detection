@@ -51,8 +51,8 @@ def main(parser_data):
 
     VOC_root = parser_data.data_path
     # check voc root
-    if os.path.exists(os.path.join(VOC_root, "VOCdevkit")) is False:
-        raise FileNotFoundError("VOCdevkit dose not in path:'{}'.".format(VOC_root))
+    #if os.path.exists(os.path.join(VOC_root, "VOCdevkit")) is False:
+    #    raise FileNotFoundError("VOCdevkit dose not in path:'{}'.".format(VOC_root))
 
     # load train data set
     # VOCdevkit -> VOC2012 -> ImageSets -> Main -> train.txt
