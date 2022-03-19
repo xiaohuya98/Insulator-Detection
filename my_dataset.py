@@ -16,7 +16,7 @@ class InsulatorDataSet(Dataset):
         self.annotations_root = os.path.join(self.root, 'InsulatorDataset', 'Normal_Insulators', "labels")
 
         # read train.txt or val.txt file
-        txt_path = os.path.join('./Insulator Detection', txt_name)
+        txt_path = os.path.join('./Insulator-Detection', txt_name)
         assert os.path.exists(txt_path), "not found {} file.".format(txt_name)
 
         with open(txt_path) as read:
