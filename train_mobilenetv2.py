@@ -7,7 +7,7 @@ import torchvision
 import transforms
 from network_files import FasterRCNN, AnchorsGenerator
 from backbone import MobileNetV2, vgg
-from my_dataset import VOCDataSet
+from my_dataset import InsulatorDataSet
 from train_utils import GroupedBatchSampler, create_aspect_ratio_groups
 from train_utils import train_eval_utils as utils
 
@@ -20,7 +20,7 @@ def create_model(num_classes):
     # backbone.out_channels = 512
 
     # https://download.pytorch.org/models/mobilenet_v2-b0353104.pth
-    backbone = MobileNetV2(weights_path="./backbone/mobilenet_v2.pth").features
+    backbone = MobileNetV2(weights_path="./Insulator-Detection/backbone/mobilenet_v2.pth").features
     backbone.out_channels = 1280  # 设置对应backbone输出特征矩阵的channels
 
     anchor_generator = AnchorsGenerator(sizes=((32, 64, 128, 256, 512),),
@@ -61,12 +61,12 @@ def main():
     amp = False  # 是否使用混合精度训练，需要GPU支持
 
     # check voc root
-    if os.path.exists(os.path.join(VOC_root, "VOCdevkit")) is False:
-        raise FileNotFoundError("VOCdevkit dose not in path:'{}'.".format(VOC_root))
+    #if os.path.exists(os.path.join(VOC_root, "VOCdevkit")) is False:
+    #    raise FileNotFoundError("VOCdevkit dose not in path:'{}'.".format(VOC_root))
 
     # load train data set
     # VOCdevkit -> VOC2012 -> ImageSets -> Main -> train.txt
-    train_dataset = VOCDataSet(VOC_root, "2012", data_transform["train"], "train.txt")
+    train_dataset = InsulatorDataSet(VOC_root, "2012", data_transform["train"], "train.txt")
     train_sampler = None
 
     # 是否按图片相似高宽比采样图片组成batch
@@ -99,7 +99,7 @@ def main():
 
     # load validation data set
     # VOCdevkit -> VOC2012 -> ImageSets -> Main -> val.txt
-    val_dataset = VOCDataSet(VOC_root, "2012", data_transform["val"], "val.txt")
+    val_dataset = InsulatorDataSet(VOC_root, "2012", data_transform["val"], "val.txt")
     val_data_loader = torch.utils.data.DataLoader(val_dataset,
                                                   batch_size=1,
                                                   shuffle=False,
