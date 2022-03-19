@@ -22,7 +22,7 @@ def create_model(num_classes):
     model = FasterRCNN(backbone=backbone, num_classes=91)
     # 载入预训练模型权重
     # https://download.pytorch.org/models/fasterrcnn_resnet50_fpn_coco-258fb6c6.pth
-    weights_dict = torch.load("./backbone/fasterrcnn_resnet50_fpn_coco.pth", map_location='cpu')
+    weights_dict = torch.load("./Insulator-Detection/backbone/fasterrcnn_resnet50_fpn_coco.pth", map_location='cpu')
     missing_keys, unexpected_keys = model.load_state_dict(weights_dict, strict=False)
     if len(missing_keys) != 0 or len(unexpected_keys) != 0:
         print("missing_keys: ", missing_keys)
@@ -51,8 +51,8 @@ def main(parser_data):
 
     VOC_root = parser_data.data_path
     # check voc root
-    if os.path.exists(os.path.join(VOC_root, "VOCdevkit")) is False:
-        raise FileNotFoundError("VOCdevkit dose not in path:'{}'.".format(VOC_root))
+    #if os.path.exists(os.path.join(VOC_root, "VOCdevkit")) is False:
+    #    raise FileNotFoundError("VOCdevkit dose not in path:'{}'.".format(VOC_root))
 
     # load train data set
     # VOCdevkit -> VOC2012 -> ImageSets -> Main -> train.txt

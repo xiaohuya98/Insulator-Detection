@@ -12,11 +12,11 @@ class InsulatorDataSet(Dataset):
     def __init__(self, insulator_root, year="2012", transforms=None, txt_name: str = "train.txt"):
       #  assert year in ["2007", "2012"], "year must be in ['2007', '2012']"
         self.root = insulator_root
-        self.img_root = os.path.join(self.root, "images")
-        self.annotations_root = os.path.join(self.root, "labels")
+        self.img_root = os.path.join(self.root, 'InsulatorDataSet/Normal_Insulators/images')
+        self.annotations_root = os.path.join(self.root,'InsulatorDataSet/Normal_Insulators/labels')
 
         # read train.txt or val.txt file
-        txt_path = os.path.join('home/studio-lab-user/Practice/Insulator Detection', txt_name)
+        txt_path = os.path.join('Insulator-Detection', txt_name)
         assert os.path.exists(txt_path), "not found {} file.".format(txt_name)
 
         with open(txt_path) as read:
@@ -29,7 +29,7 @@ class InsulatorDataSet(Dataset):
             assert os.path.exists(xml_path), "not found '{}' file.".format(xml_path)
 
         # read class_indict
-        json_file = './Insulator.json'
+        json_file = './Insulator-Detection/Insulator.json'
         assert os.path.exists(json_file), "{} file not exist.".format(json_file)
         json_file = open(json_file, 'r')
         self.class_dict = json.load(json_file)
@@ -47,7 +47,7 @@ class InsulatorDataSet(Dataset):
             xml_str = fid.read()
         xml = etree.fromstring(xml_str)
         data = self.parse_xml_to_dict(xml)["annotation"]
-        img_path = os.path.join(self.img_root, data["filename"])
+        img_path = os.path.join(self.img_root, data["filename"] + '.jpg')
         image = Image.open(img_path)
         if image.format != "JPEG":
             raise ValueError("Image '{}' format not JPEG".format(img_path))
